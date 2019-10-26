@@ -42,26 +42,27 @@ void MM::input()
 }
 void MM::display()
 {
+	cout<<"Process \tSize \t Memory Block"<<endl;
 	for(int i=0;i<p;i++)
-	{
-		cout<<"P["<<i<<"]";
+	{	
+		cout<<"P["<<i<<"] \t\t"<<P[i]<<" \t ";
 		if(A[i]!=-1)
-			cout<<" allocated to M["<<A[i]<<"]"<<endl;
+			cout<<"M["<<A[i]<<"]"<<endl;
 		else
-			cout<<" not allocated"<<endl;
+			cout<<"Not allocated"<<endl;
 	}
 }
 int* MM::bestfit()
 {
 	int T[p];
 	int t,n;
-	for(int i=0;i<p;i++)
+	for(int i=0;i<m;i++)
 	{
 		T[i]=M[i];
-		A[i]=-1;
 	}
 	for(int i=0;i<p;i++)
 	{
+		A[i]=-1;
 		n=-1;
 		for(int j=0;j<m;j++)
 		{
@@ -88,10 +89,10 @@ int* MM::worstfit()
 	for(int i=0;i<m;i++)
 	{
 		T[i]=M[i];
-		A[i]=-1;
 	}
 	for(int i=0;i<p;i++)
 	{
+		A[i]=-1;
 		n=-1;
 		for(int j=0;j<m;j++)
 		{
@@ -120,6 +121,7 @@ int* MM::firstfit()
 	}
 	for(int i=0;i<p;i++)
 	{
+		A[i]=-1;
 		for(int j=0;j<m;j++)
 		{
 			if(T[j]>=P[i])
@@ -136,28 +138,36 @@ int main()
 {
 	MM MGR;
 	MGR.input();
-	cout<<"1).Firstfit 2).Bestfit 3).Worstfit"<<endl;
+	cout<<"1).Firstfit 2).Bestfit ";
+	cout<<"3).Worstfit 4).Exit"<<endl;
 	do
 	{
 		switch(getch()-48)
 		{
 			case 1:
 			{
+				cout<<"First fit"<<endl;
 				MGR.firstfit();
 				MGR.display();
 				break;
 			}
 			case 2:
 			{
+				cout<<"Best fit"<<endl;
 				MGR.bestfit();
 				MGR.display();
 				break;
 			}
 			case 3:
 			{
+				cout<<"Worst fit"<<endl;
 				MGR.worstfit();
 				MGR.display();
 				break;
+			}
+			case 4:
+			{
+				return 1337;
 			}
 			default:
 			{
@@ -165,5 +175,4 @@ int main()
 			}
 		}
 	}while(true);
-	
 }
